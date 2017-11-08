@@ -13,16 +13,21 @@
 </head>
 
 <body ng-app="WeatherApp">
-    <div class="wrapper" ng-controller='WeatherController'>
-        <input type="text" ng-model='locationInput'>
-        <button ng-click='getWeatherInformation()'>Go !</button>
-        <div ng-show='showResult'>
-            <h3>Showing Weather Information for: {{ locationInput }}</h3>
+    <div class="wrapper">
+
+        <div ng-controller='WeatherInputController as inputController'>
+            <input type="text" ng-model='inputController.locationInput'>
+            <button ng-click='inputController.setLocation()'>Go !</button>
         </div>
 
-        <div class="panel panel-primary resultPanel">
-            <div class="panel-body" ng-repeat="(key,val) in Weatherdata">
-               {{ key | uppercase}} : {{ val }}
+        <div ng-controller="WeatherDisplayController as displayController">
+            <div ng-show='displayController.showResult'>
+                <h3>Showing Weather Information for: {{ displayController.locationName }}</h3>
+            </div>
+            <div class="panel panel-primary resultPanel">
+                <div class="panel-body" ng-repeat="(key,val) in displayController.Weatherdata">
+                    {{ key | uppercase}} : {{ displayController.val }}
+                </div>
             </div>
         </div>
 
