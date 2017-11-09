@@ -25,8 +25,8 @@
                 <h3>Showing Weather Information for: {{ displayController.locationName }}</h3>
             </div>
             <div class="panel panel-primary resultPanel">
-                <div class="panel-body" ng-repeat="(key,val) in displayController.Weatherdata">
-                    {{ key | uppercase}} : {{ displayController.val }}
+                <div class="panel-body" ng-repeat="item in  displayController.Weatherdata">
+                    {{ item.key | uppercase}} : {{ item.val }}
                 </div>
             </div>
         </div>
