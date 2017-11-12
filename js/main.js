@@ -13,7 +13,6 @@
         var inputController = this;
         
         inputController.setLocation = function () {
-            debugger;
             WeatherInfoService.setLocation(inputController.locationInput);
             WeatherInfoService.invokeCallBack('showWeatherInformation');
         }
@@ -61,24 +60,19 @@
 
         service.setCallBack=function(callbackName, callbackFunction) {
             if (!callBacks[callbackName]) {
-                debugger;
                 callBacks[callbackName] = callbackFunction;
             }
         }
 
         service.invokeCallBack=function(callbackName) {
-            debugger;
             callBacks[callbackName]();
         }
 
         service.setLocation = function (name) {
-            debugger;
             locationName=name;
-            //locationName=name;
         }
 
         service.getLocation=function(){
-            debugger;
             console.log("Get location called:", locationName);
             return locationName;
         }

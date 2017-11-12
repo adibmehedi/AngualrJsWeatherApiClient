@@ -15,22 +15,25 @@
 <body ng-app="WeatherApp">
     <div class="wrapper">
 
-        <div ng-controller='WeatherInputController as inputController'>
+        <div class="form-group" ng-controller='WeatherInputController as inputController'>
             <input type="text" ng-model='inputController.locationInput'>
-            <button ng-click='inputController.setLocation()'>Go !</button>
+            <button ng-click='inputController.setLocation()' class="btn btn-primary">Go !</button>
         </div>
 
         <div ng-controller="WeatherDisplayController as displayController">
             <div ng-show='displayController.showResult'>
                 <h3>Showing Weather Information for: {{ displayController.locationName }}</h3>
-            </div>  
-
+            </div>
             <div class="panel panel-primary resultPanel">
+                <div class="panel-heading">
+                    <button class="btn btn-success">Main</button>
+                    <button class="btn btn-success">Lat & Long</button>
+                </div>
                 <div class="panel-body" ng-repeat="(key,val) in  displayController.Weatherdata">
                     {{ key | uppercase}} : {{ val}}
                 </div>
             </div>
-            
+
         </div>
 
     </div>
