@@ -30,14 +30,14 @@
                         <button class="btn btn-success" ng-click="displayTabMain=false; displayTabCoord=true">Coordinate</button>
                     </div>
 
-                    <div ng-show="displayTabMain==true" class="panel-body">
+                    <div ng-show="displayTabMain" class="panel-body">
                         <ul>
-                            <li> Temparature: {{displayController.Weatherdata.main.temp - 273.15}} C </li>
+                            <li> Temparature: {{ (displayController.Weatherdata.main.temp - 273.15)| number:2 }} C </li>
                             <li> Humidity: {{displayController.Weatherdata.main.humidity}} % </li>
                             <li> Pressure: {{displayController.Weatherdata.main.pressure}} Hg </li>
                         </ul>
                     </div>
-                    <div ng-show="displayTabCoord==true" class="panel-body">
+                    <div ng-show="displayTabCoord" class="panel-body">
                         <ul>
                             <li> Latitude: {{displayController.Weatherdata.coord.lat }}  </li>
                             <li> Longitude: {{displayController.Weatherdata.coord.lon }}  </li>
