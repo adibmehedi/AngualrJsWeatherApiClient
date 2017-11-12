@@ -33,7 +33,7 @@
             displayController.locationName=WeatherInfoService.getLocation();
             WeatherInfoService.fetchInfo().then(function successCallback(response) {
                 console.log("Response From Service:", response);
-                displayController.Weatherdata = response.data.main;
+                displayController.Weatherdata = response.data;
                 console.log("VM elements", displayController.Weatherdata);
             }, function errorCallback(response) {
                 console.log("Ajax req error");

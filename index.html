@@ -23,16 +23,31 @@
         <div ng-controller="WeatherDisplayController as displayController">
             <div ng-show='displayController.showResult'>
                 <h3>Showing Weather Information for: {{ displayController.locationName }}</h3>
-            </div>
-            <div class="panel panel-primary resultPanel">
-                <div class="panel-heading">
-                    <button class="btn btn-success">Main</button>
-                    <button class="btn btn-success">Lat & Long</button>
+
+                <div class="panel panel-primary resultPanel">
+                    <div class="panel-heading" ng-init="displayTabMain=true">
+                        <button class="btn btn-success" ng-click="displayTabMain=true; displayTabCoord=false">Main</button>
+                        <button class="btn btn-success" ng-click="displayTabMain=false; displayTabCoord=true">Coordinate</button>
+                    </div>
+
+                    <div ng-show="displayTabMain==true" class="panel-body">
+                        <ul>
+                            <li> Temparature: {{displayController.Weatherdata.main.temp - 273.15}} C </li>
+                            <li> Humidity: {{displayController.Weatherdata.main.humidity}} % </li>
+                            <li> Pressure: {{displayController.Weatherdata.main.pressure}} Hg </li>
+                        </ul>
+                    </div>
+                    <div ng-show="displayTabCoord==true" class="panel-body">
+                        <ul>
+                            <li> Latitude: {{displayController.Weatherdata.coord.lat }}  </li>
+                            <li> Longitude: {{displayController.Weatherdata.coord.lon }}  </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="panel-body" ng-repeat="(key,val) in  displayController.Weatherdata">
-                    {{ key | uppercase}} : {{ val}}
-                </div>
+
+
             </div>
+
 
         </div>
 
