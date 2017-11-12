@@ -23,12 +23,14 @@
         <div ng-controller="WeatherDisplayController as displayController">
             <div ng-show='displayController.showResult'>
                 <h3>Showing Weather Information for: {{ displayController.locationName }}</h3>
-            </div>
+            </div>  
+
             <div class="panel panel-primary resultPanel">
-                <div class="panel-body" ng-repeat="item in  displayController.Weatherdata">
-                    {{ item.key | uppercase}} : {{ item.val }}
+                <div class="panel-body" ng-repeat="(key,val) in  displayController.Weatherdata">
+                    {{ key | uppercase}} : {{ val}}
                 </div>
             </div>
+            
         </div>
 
     </div>

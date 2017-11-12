@@ -7,7 +7,7 @@
         .service('WeatherInfoService', WeatherInfoService);
 
     /*
-    * Weather Input controller
+    * Get input from User
     */
     function WeatherInputController($scope, WeatherInfoService) {
         var inputController = this;
@@ -15,39 +15,38 @@
         inputController.setLocation = function () {
             debugger;
             WeatherInfoService.setLocation(inputController.locationInput);
-            WeatherInfoService.invokeCallBack('displayName');
+            WeatherInfoService.invokeCallBack('showWeatherInformation');
         }
 
     }
 
 
     /*
-    * Weather Display controller
+    * Display Fetched Data to UI
     */
     function WeatherDisplayController($scope, WeatherInfoService) {
         
         var displayController = this;
-        displayController.showResult = true;
+        displayController.showResult = false;
         
-        var displayName=function(){
-            debugger;
+        displayController.showWeatherInformation = function () {
+            displayController.showResult = true;
             displayController.locationName=WeatherInfoService.getLocation();
-        }
-        
-        debugger;
-        WeatherInfoService.setCallBack('displayName',displayName);
-       
-        // displayController.showWeatherInformation = function () {
-        //     displayController.showResult = true;
-        //     WeatherInfoService.fetchInfo().then(function successCallback(response) {
-        //         console.log("Response From Service:", response);
-        //         displayController.Weatherdata = response.data.main;
-        //     }, function errorCallback(response) {
-        //         console.log("Ajax req error");
-        //         displayController.Weatherdata = {}
-        //     });
+            WeatherInfoService.fetchInfo().then(function successCallback(response) {
+                console.log("Response From Service:", response);
+                displayController.Weatherdata = response.data.main;
+                console.log("VM elements", displayController.Weatherdata);
+            }, function errorCallback(response) {
+                console.log("Ajax req error");
+                displayController.Weatherdata = {}
+            });
 
-        // }
+        }
+
+        var registerToCallBack=function(name,functioDef){
+            WeatherInfoService.setCallBack(name,functioDef);
+        }
+        registerToCallBack('showWeatherInformation',displayController.showWeatherInformation);
 
     }
 
@@ -84,20 +83,20 @@
             return locationName;
         }
 
-        // service.fetchInfo = function () {
-        //     var APIkey = '11306b21803ed2e3a3006b36c271f5ec';
-        //     var baseUrl = "http://api.openweathermap.org/data/2.5/weather"
+        service.fetchInfo = function () {
+            var APIkey = '11306b21803ed2e3a3006b36c271f5ec';
+            var baseUrl = "http://api.openweathermap.org/data/2.5/weather"
 
-        //     return $http({
-        //         method: 'GET',
-        //         url: (baseUrl),
-        //         params: {
-        //             "q": locationName,
-        //             "appid": APIkey
-        //         }
-        //     },
-        //     );
-        // }
+            return $http({
+                method: 'GET',
+                url: (baseUrl),
+                params: {
+                    "q": locationName,
+                    "appid": APIkey
+                }
+            },
+            );
+        }
     }
 
     WeatherInputController.$inject = ['$scope','WeatherInfoService'];
