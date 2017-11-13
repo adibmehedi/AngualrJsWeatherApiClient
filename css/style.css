@@ -6,11 +6,11 @@
 }
 
 .input-form{
-    padding-top:50px;
+    padding-top:100px;
 }
 
 .input-form input{
-  
+  min-width:250px;
 }
 
 #map {
