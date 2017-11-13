@@ -8,48 +8,57 @@
     <title>Weather Client</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script src="js/angular.js"></script>
     <script src="js/main.js"></script>
 </head>
 
 <body ng-app="WeatherApp">
     <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <form class="form-inline input-form">
+                        <div ng-controller='WeatherInputController as inputController'>
+                            <input type="text" class="form-control" ng-model='inputController.locationInput' placeholder="City, Country">
+                            <button ng-click='inputController.setLocation()' class="btn btn-primary">Go !</button>
+                        </div>
+                    </form>
 
-        <div class="form-group" ng-controller='WeatherInputController as inputController'>
-            <input type="text" ng-model='inputController.locationInput'>
-            <button ng-click='inputController.setLocation()' class="btn btn-primary">Go !</button>
-        </div>
 
-        <div ng-controller="WeatherDisplayController as displayController">
-            <div ng-show='displayController.showResult'>
-                <h3>Showing Weather Information for: {{ displayController.locationName }}</h3>
+                    <div ng-controller="WeatherDisplayController as displayController">
+                        <div ng-show='displayController.showResult'>
+                            <h3>Showing Weather Information for: {{ displayController.locationName }}</h3>
 
-                <div class="panel panel-primary resultPanel">
-                    <div class="panel-heading" ng-init="displayTabMain=true">
-                        <button class="btn btn-success" ng-click="displayTabMain=true; displayTabCoord=false">Main</button>
-                        <button class="btn btn-success" ng-click="displayTabMain=false; displayTabCoord=true">Coordinate</button>
-                    </div>
+                            <div class="panel panel-primary resultPanel">
+                                <div class="panel-heading" ng-init="displayTabMain=true">
+                                    <button class="btn btn-success" ng-click="displayTabMain=true; displayTabCoord=false">Main</button>
+                                    <button class="btn btn-success" ng-click="displayTabMain=false; displayTabCoord=true">Coordinate</button>
+                                </div>
 
-                    <div ng-show="displayTabMain" class="panel-body">
-                        <ul>
-                            <li> Temparature: {{ (displayController.Weatherdata.main.temp - 273.15)| number:2 }} C </li>
-                            <li> Humidity: {{displayController.Weatherdata.main.humidity}} % </li>
-                            <li> Pressure: {{displayController.Weatherdata.main.pressure}} Hg </li>
-                        </ul>
-                    </div>
-                    <div ng-show="displayTabCoord" class="panel-body">
-                        <ul>
-                            <li> Latitude: {{displayController.Weatherdata.coord.lat }}  </li>
-                            <li> Longitude: {{displayController.Weatherdata.coord.lon }}  </li>
-                        </ul>
+                                <div ng-show="displayTabMain" class="panel-body">
+                                    <ul>
+                                        <li> Temparature: {{ (displayController.Weatherdata.main.temp - 273.15)| number:2 }} C</li>
+                                        <li> Humidity: {{displayController.Weatherdata.main.humidity}} % </li>
+                                        <li> Pressure: {{displayController.Weatherdata.main.pressure}} Hg </li>
+                                    </ul>
+                                </div>
+                                <div ng-show="displayTabCoord" class="panel-body">
+                                    <ul>
+                                        <li> Latitude: {{displayController.Weatherdata.coord.lat }} </li>
+                                        <li> Longitude: {{displayController.Weatherdata.coord.lon }} </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-
+                <div class="col-md-9" ng-controller="MapDisplayController as mapController">
+                    <div id="map"></div>
+                </div>
             </div>
-
-
         </div>
+
 
     </div>
 </body>
